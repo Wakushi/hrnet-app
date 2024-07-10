@@ -3,7 +3,7 @@ import { states } from "../lib/state-data"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "../store"
 import { addEmployee } from "../features/employee/employeeSlice"
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { USER_MOCK } from "../lib/mock"
 import { IoIosClose } from "react-icons/io"
 
@@ -101,7 +101,7 @@ export default function EmployeeFormPage() {
 
   function generateMock() {
     dispatch(addEmployee(USER_MOCK))
-    setShowModal(true)
+    // setShowModal(true)
   }
 
   return (
