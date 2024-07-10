@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand: rgb(133, 136, 246);
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+input,
+select {
+  border-bottom: 2px solid var(--brand);
+  border-radius: 0.2rem;
+  box-shadow: 0px 7px 10px -2px #61616125;
+  padding: 0.4rem 0.8rem;
+  background-color: rgba(240, 240, 240, 0.421);
+}
+
+label {
+  font-weight: 500;
+  color: rgb(73, 73, 73);
+  font-size: 0.9rem;
+}
+
+.nav-button {
+  cursor: pointer;
+  border: 1px solid var(--brand);
+  background-color: var(--brand);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.2rem;
+  transition: all 200ms;
+}
+
+.nav-button.active,
+.nav-button:hover {
+  color: var(--brand);
+  background-color: #fff;
+}
