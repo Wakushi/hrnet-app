@@ -6,6 +6,8 @@ import { addEmployee } from "../features/employee/employeeSlice"
 import { NavLink } from "react-router-dom"
 import { IoIosClose } from "react-icons/io"
 import DatePicker from "wakushi-date-picker"
+import Select from "react-select"
+import { departments } from "../lib/department-data"
 
 interface FormValues {
   firstName: string
@@ -31,6 +33,11 @@ interface FormErrors {
   department?: string
 }
 
+interface OptionType {
+  value: string
+  label: string
+}
+
 const formErrorsMessages = {
   firstName: "Please fill in the employee's first name",
   lastName: "Please fill in the employee's last name",
@@ -47,7 +54,6 @@ export default function EmployeeFormPage() {
   const dispatch = useDispatch<AppDispatch>()
 
   const [showModal, setShowModal] = useState<boolean>(false)
-
   const [formValues, setFormValues] = useState<FormValues>({
     firstName: "",
     lastName: "",
@@ -70,11 +76,17 @@ export default function EmployeeFormPage() {
     })
   }
 
-  function handleSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    setFormErrors({ ...formErrors, [event.target.name]: "" })
+  function handleSelectChange({
+    option,
+    name,
+  }: {
+    option: OptionType
+    name: string
+  }) {
+    setFormErrors({ ...formErrors, [name]: "" })
     setFormValues({
       ...formValues,
-      [event.target.name]: event.target.value,
+      [name]: option.value,
     })
   }
 
@@ -97,6 +109,17 @@ export default function EmployeeFormPage() {
       dispatch(addEmployee(formValues))
       setShowModal(true)
     }
+  }
+
+  const stateOptions = (): OptionType[] =>
+    states.map(({ name, abbreviation }) => ({
+      value: abbreviation,
+      label: name,
+    }))
+
+  function getOptionType(value: string, list: OptionType[]): OptionType | null {
+    const option = list.find((o) => o.value === value)
+    return option ?? null
   }
 
   return (
@@ -200,19 +223,21 @@ export default function EmployeeFormPage() {
 
             <div className="flex flex-col gap-2">
               <label htmlFor="state">State</label>
-              <select
+              <Select<OptionType, false>
                 name="state"
                 id="state"
-                value={formValues.state}
-                onChange={handleSelectChange}
-              >
-                <option value={""}>-- Please choose an option --</option>
-                {states.map(({ name, abbreviation }) => (
-                  <option key={name} value={abbreviation}>
-                    {name}
-                  </option>
-                ))}
-              </select>
+                value={getOptionType(formValues.state, stateOptions())}
+                onChange={(option) => {
+                  handleSelectChange({
+                    option: option as OptionType,
+                    name: "state",
+                  })
+                }}
+                options={states.map(({ name, abbreviation }) => ({
+                  value: abbreviation,
+                  label: name,
+                }))}
+              />
               {formErrors.state && (
                 <div className="text-sm text-red-600">{formErrors.state}</div>
               )}
@@ -235,19 +260,18 @@ export default function EmployeeFormPage() {
           >
             Department
           </label>
-          <select
+          <Select<OptionType, false>
             name="department"
             id="department"
-            value={formValues.department}
-            onChange={handleSelectChange}
-          >
-            <option value={""}>-- Please choose an option --</option>
-            <option value="Sales">Sales</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Engineering">Engineering</option>
-            <option value="Human Resources">Human Resources</option>
-            <option value="Legal">Legal</option>
-          </select>
+            value={getOptionType(formValues.department, departments)}
+            onChange={(option) => {
+              handleSelectChange({
+                option: option as OptionType,
+                name: "department",
+              })
+            }}
+            options={departments}
+          />
           {formErrors.department && (
             <div className="text-sm text-red-600">{formErrors.department}</div>
           )}
