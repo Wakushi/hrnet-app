@@ -6,6 +6,7 @@ import { addEmployee } from "../features/employee/employeeSlice"
 import { NavLink } from "react-router-dom"
 import { USER_MOCK } from "../lib/mock"
 import { IoIosClose } from "react-icons/io"
+import DatePicker from "../components/DatePicker"
 
 interface FormValues {
   firstName: string
@@ -101,7 +102,6 @@ export default function EmployeeFormPage() {
 
   function generateMock() {
     dispatch(addEmployee(USER_MOCK))
-    // setShowModal(true)
   }
 
   return (
@@ -134,14 +134,28 @@ export default function EmployeeFormPage() {
             />
 
             <div className="flex flex-col gap-4">
-              <FormInput
-                label="Date of birth"
-                formControlName="birthdate"
-                type="date"
-                formValues={formValues}
-                formErrors={formErrors}
-                handleInputChange={handleInputChange}
-              />
+              <div className="flex flex-col gap-2 w-full">
+                <label htmlFor="birthdate">Date of birth</label>
+                <DatePicker
+                  id="birthdate"
+                  value={formValues.birthdate}
+                  onChange={(date) => {
+                    setFormValues((prevFormValues) => ({
+                      ...prevFormValues,
+                      birthdate: date,
+                    }))
+                    setFormErrors((prevFormErrors) => ({
+                      ...prevFormErrors,
+                      birthdate: "",
+                    }))
+                  }}
+                />
+                {formErrors["birthdate"] && (
+                  <div className="text-sm text-red-500">
+                    {formErrors["birthdate"]}
+                  </div>
+                )}
+              </div>
 
               <FormInput
                 label="Start date"
@@ -273,7 +287,7 @@ function FormInput({
         name={formControlName}
         type={type}
       />
-      {formErrors.birthdate && (
+      {formErrors[formControlName as keyof FormErrors] && (
         <div className="text-sm text-red-500">
           {formErrors[formControlName as keyof FormErrors]}
         </div>

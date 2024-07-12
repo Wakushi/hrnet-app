@@ -16,14 +16,18 @@ import { Employee } from "../lib/types"
 import { useSelector } from "react-redux"
 import { getEmployeeList } from "../lib/selectors"
 import { FaArrowDownShortWide, FaArrowUpWideShort } from "react-icons/fa6"
+import { NavLink } from "react-router-dom"
 
 export default function EmployeeDataTablePage() {
   const employees = useSelector(getEmployeeList)
 
   if (!employees.length) {
     return (
-      <div className="flex items-center justify-center p-20">
-        <p className="text-lg">No employee registered.</p>
+      <div className="flex h-[100vh] border flex-col gap-5 items-center justify-center p-20">
+        <p className="text-lg">No employee registered yet</p>
+        <NavLink className="nav-button" to="/">
+          Register a new employee
+        </NavLink>
       </div>
     )
   }
