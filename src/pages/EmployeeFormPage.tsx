@@ -100,10 +100,6 @@ export default function EmployeeFormPage() {
     }
   }
 
-  function generateMock() {
-    dispatch(addEmployee(USER_MOCK))
-  }
-
   return (
     <div className="relative flex flex-col items-center justify-center gap-4 p-8 pt-20 h-full">
       <h1 className="text-3xl font-bold mb-4">Create Employee</h1>
@@ -262,13 +258,6 @@ export default function EmployeeFormPage() {
           type="submit"
         >
           Save
-        </button>
-        <button
-          className="bg-brand text-white self-end w-full p-2 rounded-md shadow-md hover:bg-white hover:text-brand border border-transparent hover:border-brand lg:max-w-[338px]"
-          type="button"
-          onClick={generateMock}
-        >
-          Generate mock
         </button>
       </form>
       {showModal && <SuccessModal setShowModal={setShowModal} />}
