@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux"
 import { AppDispatch } from "../store"
 import { addEmployee } from "../features/employee/employeeSlice"
 import { NavLink } from "react-router-dom"
-import { USER_MOCK } from "../lib/mock"
 import { IoIosClose } from "react-icons/io"
 import DatePicker from "wakushi-date-picker"
 
