@@ -9,7 +9,14 @@ export default function App() {
       <Routes>
         <Route path="/" element={<EmployeeFormPage />} />
         <Route path="/employees" element={<EmployeeDataTablePage />} />
-        <Route path="*" element={<div>Not found</div>} />
+        <Route
+          path="*"
+          element={
+            <div className="min-h-[100vh] flex justify-center items-center">
+              <span className="text-3xl font-bold">404 Not found</span>
+            </div>
+          }
+        />
       </Routes>
     </Layout>
   )

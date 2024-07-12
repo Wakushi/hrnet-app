@@ -42,21 +42,3 @@ label {
   color: var(--brand);
   background-color: #fff;
 }
-
-.grid-box {
-  width: 25px;
-  height: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.2rem;
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-.day-chip:hover {
-  cursor: pointer;
-  background-color: var(--brand);
-  color: #fff;
-  border-radius: 50%;
-}

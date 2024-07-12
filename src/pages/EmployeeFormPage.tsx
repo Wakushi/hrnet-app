@@ -6,7 +6,7 @@ import { addEmployee } from "../features/employee/employeeSlice"
 import { NavLink } from "react-router-dom"
 import { USER_MOCK } from "../lib/mock"
 import { IoIosClose } from "react-icons/io"
-import DatePicker from "../components/DatePicker"
+import DatePicker from "wakushi-date-picker"
 
 interface FormValues {
   firstName: string
@@ -139,7 +139,7 @@ export default function EmployeeFormPage() {
                 <DatePicker
                   id="birthdate"
                   value={formValues.birthdate}
-                  onChange={(date) => {
+                  onChange={(date: string) => {
                     setFormValues((prevFormValues) => ({
                       ...prevFormValues,
                       birthdate: date,
@@ -157,14 +157,28 @@ export default function EmployeeFormPage() {
                 )}
               </div>
 
-              <FormInput
-                label="Start date"
-                formControlName="startDate"
-                type="date"
-                formValues={formValues}
-                formErrors={formErrors}
-                handleInputChange={handleInputChange}
-              />
+              <div className="flex flex-col gap-2 w-full">
+                <label htmlFor="birthdate">Start date</label>
+                <DatePicker
+                  id="startDate"
+                  value={formValues.startDate}
+                  onChange={(date: string) => {
+                    setFormValues((prevFormValues) => ({
+                      ...prevFormValues,
+                      startDate: date,
+                    }))
+                    setFormErrors((prevFormErrors) => ({
+                      ...prevFormErrors,
+                      startDate: "",
+                    }))
+                  }}
+                />
+                {formErrors["startDate"] && (
+                  <div className="text-sm text-red-500">
+                    {formErrors["startDate"]}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
